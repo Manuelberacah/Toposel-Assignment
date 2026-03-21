@@ -1,0 +1,146 @@
+================================================================
+  SHOP.CO WordPress Theme - Setup Instructions
+================================================================
+
+PREREQUISITES:
+- XAMPP (or WAMP/MAMP) installed and running (Apache + MySQL)
+- WordPress installed locally (e.g., at localhost/your-site)
+- WooCommerce plugin installed and activated
+
+================================================================
+STEP 1: Install the Theme
+================================================================
+1. Copy the entire "shopco-theme" folder into:
+   C:\xampp\htdocs\your-site\wp-content\themes\shopco-theme
+
+2. Go to WordPress Dashboard > Appearance > Themes
+3. Find "ShopCo Theme" and click "Activate"
+
+================================================================
+STEP 2: Set Up the Homepage
+================================================================
+1. Go to Dashboard > Pages > Add New
+2. Create a page called "Home" (leave content blank - the theme handles it)
+3. Go to Dashboard > Settings > Reading
+4. Select "A static page" under "Your homepage displays"
+5. Set "Homepage" to the "Home" page you just created
+6. Save Changes
+
+================================================================
+STEP 3: Set Up WooCommerce
+================================================================
+1. If not done, go to Plugins > Add New > Search "WooCommerce" > Install & Activate
+2. Follow the WooCommerce setup wizard
+3. Go to WooCommerce > Settings > General and configure your store details
+
+================================================================
+STEP 4: Add Products
+================================================================
+To match the Figma design, create these sample products:
+
+NEW ARRIVALS (tag them with "new-arrival"):
+  - T-shirt with Tape Details - $120
+  - Skinny Fit Jeans - Regular: $260, Sale: $240
+  - Checkered Shirt - $180
+  - Sleeve Striped T-shirt - Regular: $160, Sale: $130
+
+TOP SELLING (these will auto-sort by sales, or just add any 4 products):
+  - Vertical Striped Shirt - Regular: $232, Sale: $212
+  - Courage Graphic T-shirt - $145
+  - Loose Fit Bermuda Shorts - $80
+  - Faded Skinny Jeans - $210
+
+For each product:
+  a. Go to Dashboard > Products > Add New
+  b. Enter the product name
+  c. Set the Regular Price (and Sale Price if on sale)
+  d. Upload a product image (Featured Image)
+  e. Add the tag "new-arrival" for New Arrivals products
+  f. Publish
+
+================================================================
+STEP 5: Create Product Categories (for Browse by Style section)
+================================================================
+Go to Products > Categories and create:
+  - Casual
+  - Formal
+  - Party
+  - Gym
+
+Assign products to the appropriate categories.
+
+================================================================
+STEP 6: Set Up Navigation Menu
+================================================================
+1. Go to Appearance > Menus
+2. Create a new menu called "Primary Menu"
+3. Add these items:
+   - Shop (link to Shop page, make it a dropdown parent)
+   - On Sale (custom link)
+   - New Arrivals (custom link)
+   - Brands (custom link)
+4. Assign it to the "Primary Menu" location
+5. Save
+
+================================================================
+STEP 7: Create Additional Pages
+================================================================
+- Contact page: Create a new page, in the Page Attributes
+  section set the Template to "Contact Page"
+- Blog page: Create a page called "Blog"
+
+================================================================
+STEP 8: Customize Theme Settings
+================================================================
+Go to Appearance > Customize to edit:
+- Top Banner text and link
+- Hero section title, subtitle, and image
+- Newsletter title
+- Site logo (under Site Identity)
+
+================================================================
+STEP 9: Add Hero Image
+================================================================
+1. Go to Appearance > Customize > Hero Section
+2. Upload the hero image (a fashion couple photo matching the design)
+3. Publish
+
+================================================================
+FOLDER STRUCTURE:
+================================================================
+shopco-theme/
+  style.css              - Theme metadata
+  functions.php          - Theme setup, WooCommerce support, customizer
+  header.php             - Top banner + navigation + search
+  footer.php             - Multi-column footer + payments
+  front-page.php         - Homepage (hero, brands, products, testimonials, newsletter)
+  index.php              - Blog listing fallback
+  page.php               - Generic page template
+  single.php             - Single blog post
+  archive.php            - Archive/category pages
+  search.php             - Search results
+  404.php                - 404 error page
+  page-contact.php       - Contact page template
+  woocommerce.php        - WooCommerce wrapper
+  screenshot.png         - Theme thumbnail
+  assets/
+    css/
+      main.css           - All styles (1500+ lines)
+    js/
+      main.js            - Interactivity (mobile menu, slider, etc.)
+    images/              - Place hero-couple.png and category images here
+  woocommerce/
+    content-product.php          - Custom product card for shop loops
+    content-single-product.php   - Custom single product layout
+
+================================================================
+NOTES:
+================================================================
+- The theme uses Google Fonts (Montserrat + Inter) - loaded via CDN
+- All sections are fully responsive (desktop, tablet, mobile)
+- WooCommerce styles are overridden to match the Figma design
+- Product cards display star ratings, prices, and discount badges
+- The testimonial slider supports touch/swipe on mobile
+- The "Browse by Dress Style" cards use CSS gradients as placeholders
+  - Replace with actual images by adding background-image in CSS
+    or uploading category thumbnails in WooCommerce
