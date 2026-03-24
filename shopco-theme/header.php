@@ -10,12 +10,28 @@
 <?php wp_body_open(); ?>
 
 <!-- Top Promo Banner -->
+<?php
+    $front_page_id  = get_option( 'page_on_front' );
+    $banner_text      = function_exists( 'get_field' ) ? get_field( 'announcement_text', $front_page_id ) : '';
+    $banner_link_text = function_exists( 'get_field' ) ? get_field( 'announcement_link_text', $front_page_id ) : '';
+    $banner_link_url  = function_exists( 'get_field' ) ? get_field( 'announcement_link_url', $front_page_id ) : '';
+
+    if ( ! $banner_text ) {
+        $banner_text = get_theme_mod( 'shopco_banner_text', 'Sign up and get 20% off to your first order.' );
+    }
+    if ( ! $banner_link_text ) {
+        $banner_link_text = get_theme_mod( 'shopco_banner_link_text', 'Sign Up Now' );
+    }
+    if ( ! $banner_link_url ) {
+        $banner_link_url = wp_registration_url();
+    }
+?>
 <div class="top-banner" id="topBanner">
     <div class="container">
         <p class="top-banner__text">
-            <?php echo esc_html( get_theme_mod( 'shopco_banner_text', 'Sign up and get 20% off to your first order.' ) ); ?>
-            <a href="<?php echo esc_url( wp_registration_url() ); ?>" class="top-banner__link">
-                <?php echo esc_html( get_theme_mod( 'shopco_banner_link_text', 'Sign Up Now' ) ); ?>
+            <?php echo esc_html( $banner_text ); ?>
+            <a href="<?php echo esc_url( $banner_link_url ); ?>" class="top-banner__link">
+                <?php echo esc_html( $banner_link_text ); ?>
             </a>
         </p>
         <button class="top-banner__close" id="closeBanner" aria-label="Close banner">

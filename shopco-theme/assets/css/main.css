@@ -578,6 +578,30 @@ input {
     fill: white;
 }
 
+.brands__logo img {
+    max-height: 33px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.brands__logo-text {
+    font-family: serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.products-section__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--color-gray-400);
+    padding: 40px 0;
+    font-size: 15px;
+}
+
 /* ============================================
    PRODUCT SECTIONS (New Arrivals & Top Selling)
    ============================================ */

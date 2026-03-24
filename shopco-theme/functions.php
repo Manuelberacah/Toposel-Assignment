@@ -494,3 +494,276 @@ function shopco_customizer( $wp_customize ) {
     ) );
 }
 add_action( 'customize_register', 'shopco_customizer' );
+
+/**
+ * ============================================================
+ * ACF Field Groups - Homepage Dynamic Content
+ * ============================================================
+ * Registers all ACF fields programmatically so they ship with
+ * the theme. Requires the ACF (free or Pro) plugin to be active.
+ */
+function shopco_register_acf_fields() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        return;
+    }
+
+    // ── Announcement Bar ──
+    acf_add_local_field_group( array(
+        'key'      => 'group_announcement_bar',
+        'title'    => 'Announcement Bar',
+        'fields'   => array(
+            array(
+                'key'           => 'field_announcement_text',
+                'label'         => 'Announcement Text',
+                'name'          => 'announcement_text',
+                'type'          => 'text',
+                'default_value' => 'Sign up and get 20% off to your first order.',
+                'instructions'  => 'The promotional text shown in the top black banner.',
+            ),
+            array(
+                'key'           => 'field_announcement_link_text',
+                'label'         => 'Link Text',
+                'name'          => 'announcement_link_text',
+                'type'          => 'text',
+                'default_value' => 'Sign Up Now',
+                'instructions'  => 'The clickable link text next to the announcement.',
+            ),
+            array(
+                'key'           => 'field_announcement_link_url',
+                'label'         => 'Link URL',
+                'name'          => 'announcement_link_url',
+                'type'          => 'url',
+                'default_value' => '',
+                'instructions'  => 'Where the link text points to. Leave empty for default registration page.',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'style'      => 'default',
+    ) );
+
+    // ── Hero Section ──
+    acf_add_local_field_group( array(
+        'key'      => 'group_hero_section',
+        'title'    => 'Hero Section',
+        'fields'   => array(
+            array(
+                'key'           => 'field_hero_heading',
+                'label'         => 'Heading',
+                'name'          => 'hero_heading',
+                'type'          => 'text',
+                'default_value' => 'FIND CLOTHES THAT MATCHES YOUR STYLE',
+                'instructions'  => 'Main hero title.',
+            ),
+            array(
+                'key'           => 'field_hero_subheading',
+                'label'         => 'Subheading',
+                'name'          => 'hero_subheading',
+                'type'          => 'textarea',
+                'default_value' => 'Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.',
+                'instructions'  => 'Text below the hero title.',
+                'rows'          => 3,
+            ),
+            array(
+                'key'           => 'field_hero_image',
+                'label'         => 'Hero Image',
+                'name'          => 'hero_image',
+                'type'          => 'image',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+                'instructions'  => 'Upload the main hero banner image.',
+            ),
+            array(
+                'key'           => 'field_hero_button_text',
+                'label'         => 'Button Text',
+                'name'          => 'hero_button_text',
+                'type'          => 'text',
+                'default_value' => 'Shop Now',
+            ),
+            array(
+                'key'           => 'field_hero_button_link',
+                'label'         => 'Button Link',
+                'name'          => 'hero_button_link',
+                'type'          => 'url',
+                'default_value' => '',
+                'instructions'  => 'Leave empty to link to the Shop page.',
+            ),
+            array(
+                'key'   => 'field_hero_stats',
+                'label' => 'Statistics',
+                'name'  => 'hero_stats',
+                'type'  => 'repeater',
+                'instructions' => 'The counters shown below the hero (e.g. 200+ International Brands).',
+                'min'        => 0,
+                'max'        => 4,
+                'layout'     => 'table',
+                'sub_fields' => array(
+                    array(
+                        'key'   => 'field_stat_number',
+                        'label' => 'Number',
+                        'name'  => 'stat_number',
+                        'type'  => 'text',
+                    ),
+                    array(
+                        'key'   => 'field_stat_label',
+                        'label' => 'Label',
+                        'name'  => 'stat_label',
+                        'type'  => 'text',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
+                ),
+            ),
+        ),
+        'menu_order' => 1,
+        'position'   => 'normal',
+        'style'      => 'default',
+    ) );
+
+    // ── Brand Logos Bar ──
+    acf_add_local_field_group( array(
+        'key'      => 'group_brand_logos',
+        'title'    => 'Brand Logos Bar',
+        'fields'   => array(
+            array(
+                'key'          => 'field_brand_logos',
+                'label'        => 'Brand Logos',
+                'name'         => 'brand_logos',
+                'type'         => 'repeater',
+                'instructions' => 'Upload brand logo images. Use white/transparent PNG logos for best results on the black background.',
+                'min'          => 0,
+                'max'          => 10,
+                'layout'       => 'block',
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_brand_logo_image',
+                        'label'         => 'Logo Image',
+                        'name'          => 'brand_logo_image',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'thumbnail',
+                        'instructions'  => 'Upload a brand logo (recommended: white PNG on transparent background).',
+                    ),
+                    array(
+                        'key'   => 'field_brand_logo_name',
+                        'label' => 'Brand Name',
+                        'name'  => 'brand_logo_name',
+                        'type'  => 'text',
+                        'instructions' => 'Used as alt text for accessibility.',
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
+                ),
+            ),
+        ),
+        'menu_order' => 2,
+        'position'   => 'normal',
+        'style'      => 'default',
+    ) );
+
+    // ── New Arrivals Section ──
+    acf_add_local_field_group( array(
+        'key'      => 'group_new_arrivals',
+        'title'    => 'New Arrivals Section',
+        'fields'   => array(
+            array(
+                'key'           => 'field_new_arrivals_title',
+                'label'         => 'Section Title',
+                'name'          => 'new_arrivals_title',
+                'type'          => 'text',
+                'default_value' => 'NEW ARRIVALS',
+            ),
+            array(
+                'key'          => 'field_new_arrivals_category',
+                'label'        => 'Product Category / Collection',
+                'name'         => 'new_arrivals_category',
+                'type'         => 'taxonomy',
+                'taxonomy'     => 'product_cat',
+                'field_type'   => 'select',
+                'allow_null'   => 1,
+                'return_format'=> 'id',
+                'instructions' => 'Choose which product category to display in the New Arrivals section. Leave empty to show the latest products.',
+            ),
+            array(
+                'key'           => 'field_new_arrivals_count',
+                'label'         => 'Number of Products',
+                'name'          => 'new_arrivals_count',
+                'type'          => 'number',
+                'default_value' => 4,
+                'min'           => 1,
+                'max'           => 8,
+                'instructions'  => 'How many product cards to display.',
+            ),
+            array(
+                'key'           => 'field_new_arrivals_view_all_link',
+                'label'         => 'View All Link',
+                'name'          => 'new_arrivals_view_all_link',
+                'type'          => 'url',
+                'default_value' => '',
+                'instructions'  => 'Leave empty to link to the Shop page.',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
+                ),
+            ),
+        ),
+        'menu_order' => 3,
+        'position'   => 'normal',
+        'style'      => 'default',
+    ) );
+}
+add_action( 'acf/init', 'shopco_register_acf_fields' );
+
+/**
+ * ACF JSON save/load paths (so field changes are version-controlled)
+ */
+function shopco_acf_json_save_point( $path ) {
+    return SHOPCO_DIR . '/acf-json';
+}
+add_filter( 'acf/settings/save_json', 'shopco_acf_json_save_point' );
+
+function shopco_acf_json_load_point( $paths ) {
+    $paths[] = SHOPCO_DIR . '/acf-json';
+    return $paths;
+}
+add_filter( 'acf/settings/load_json', 'shopco_acf_json_load_point' );
+
+/**
+ * Admin notice if ACF is not installed
+ */
+function shopco_acf_admin_notice() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        echo '<div class="notice notice-warning is-dismissible">';
+        echo '<p><strong>ShopCo Theme:</strong> Please install and activate the <a href="' . admin_url( 'plugin-install.php?s=advanced+custom+fields&tab=search&type=term' ) . '">Advanced Custom Fields</a> plugin to enable full homepage content management.</p>';
+        echo '</div>';
+    }
+}
+add_action( 'admin_notices', 'shopco_acf_admin_notice' );
